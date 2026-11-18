@@ -36,7 +36,7 @@ describe("nsSync()", () => {
 
 			assert.equal(
 				read(repository, "CLAUDE.md"),
-				`<!-- BEGIN:nam-shub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:nam-shub -->\n`,
+				`<!-- BEGIN:namshub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:namshub -->\n`,
 			);
 		});
 
@@ -57,7 +57,7 @@ describe("nsSync()", () => {
 
 			assert.equal(
 				read(repository, "AGENTS.md"),
-				`<!-- BEGIN:nam-shub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:nam-shub -->\n\n# Project One\n\nRun npm test.\n`,
+				`<!-- BEGIN:namshub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:namshub -->\n\n# Project One\n\nRun npm test.\n`,
 			);
 		});
 
@@ -73,7 +73,7 @@ describe("nsSync()", () => {
 			write(
 				repository,
 				"AGENTS.md",
-				"<!-- BEGIN:nam-shub@1234567 -->\n\nOld rule.\n\n<!-- END:nam-shub -->\n\n# Project One\n",
+				"<!-- BEGIN:namshub@1234567 -->\n\nOld rule.\n\n<!-- END:namshub -->\n\n# Project One\n",
 			);
 		});
 
@@ -82,7 +82,7 @@ describe("nsSync()", () => {
 
 			assert.equal(
 				read(repository, "AGENTS.md"),
-				`<!-- BEGIN:nam-shub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:nam-shub -->\n\n# Project One\n`,
+				`<!-- BEGIN:namshub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:namshub -->\n\n# Project One\n`,
 			);
 		});
 
@@ -90,6 +90,26 @@ describe("nsSync()", () => {
 			const { previous } = nsSync(repository, source);
 
 			assert.equal(previous, "1234567");
+		});
+
+		describe("marked nam-shub, from before the rename", () => {
+			beforeEach(() => {
+				write(
+					repository,
+					"AGENTS.md",
+					"<!-- BEGIN:nam-shub@1234567 -->\n\nOld rule.\n\n<!-- END:nam-shub -->\n\n# Project One\n",
+				);
+			});
+
+			it("replaces the block with one marked namshub", () => {
+				const { commit, previous } = nsSync(repository, source);
+
+				assert.equal(previous, "1234567");
+				assert.equal(
+					read(repository, "AGENTS.md"),
+					`<!-- BEGIN:namshub@${commit} -->\n<!-- prettier-ignore-start -->\n\nWrite less code.\n\n<!-- prettier-ignore-end -->\n<!-- END:namshub -->\n\n# Project One\n`,
+				);
+			});
 		});
 
 		describe("with dollar signs in the core", () => {
@@ -207,7 +227,7 @@ describe("nsSync()", () => {
 					write(
 						repository,
 						"AGENTS.md",
-						"<!-- BEGIN:nam-shub@1234567 -->\n\nOld rule.\n\n<!-- END:nam-shub -->\n",
+						"<!-- BEGIN:namshub@1234567 -->\n\nOld rule.\n\n<!-- END:namshub -->\n",
 					);
 				});
 
@@ -333,12 +353,12 @@ function makeSource(contents: {
 	});
 	git(source, "init", "--quiet");
 	git(source, "add", "--all");
-	git(source, "commit", "--quiet", "--allow-empty", "-m", "nam-shub");
+	git(source, "commit", "--quiet", "--allow-empty", "-m", "namshub");
 	return source;
 }
 
 function makeDirectory() {
-	return mkdtempSync(join(tmpdir(), "nam-shub-test-"));
+	return mkdtempSync(join(tmpdir(), "namshub-test-"));
 }
 
 function write(directory: string, path: string, text: string) {

@@ -44,7 +44,7 @@ export function runWithStandInGitHub(
 		refusedWrite,
 	}: { editedBodies?: Record<number, string>; refusedWrite?: string } = {},
 ) {
-	const bin = mkdtempSync(join(tmpdir(), "nam-shub-test-"));
+	const bin = mkdtempSync(join(tmpdir(), "namshub-test-"));
 	try {
 		writeFileSync(
 			join(bin, "stand-in.json"),
