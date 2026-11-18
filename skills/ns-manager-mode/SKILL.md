@@ -84,3 +84,4 @@ keeping the scripts' rules.
   without changes loses it, so relaunch rather than resume.
 
 @.claude/extensions/skills/ns-manager-mode/BRIEFS.md
+@.claude/extensions/skills/ns-manager-mode/SKILL.md
