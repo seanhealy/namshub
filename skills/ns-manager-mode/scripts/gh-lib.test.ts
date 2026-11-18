@@ -211,7 +211,7 @@ describe("runAllowedMutation()", () => {
 });
 
 function runWithFakeGitHub(query: string, allowedMutations: string[]) {
-	const bin = mkdtempSync(join(tmpdir(), "nam-shub-test-"));
+	const bin = mkdtempSync(join(tmpdir(), "namshub-test-"));
 	writeFileSync(
 		join(bin, "gh"),
 		[

@@ -1,4 +1,4 @@
-# nam-shub
+# namshub
 
 The shared rules and skills for The Operator's repos. `core.md` is synced into
 each repo's `AGENTS.md`, and the skills in `skills/` into its `.claude/skills/`,
@@ -11,7 +11,7 @@ are typed by hand often.
 To set up a repo, ask the agent working in it:
 
 ```
-Set up nam-shub: read `skills/ns-sync/SKILL.md` in `seanhealy/nam-shub` and follow it.
+Set up namshub: read `skills/ns-sync/SKILL.md` in `seanhealy/namshub` and follow it.
 ```
 
 After that, ask for the `ns-sync` skill in the repo to update it. A repo synced

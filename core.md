@@ -1,7 +1,7 @@
-# nam-shub
+# namshub
 
 The rules for every repo. This block is generated from `core.md` in
-`seanhealy/nam-shub` by the `ns-sync` skill and replaced whole on each
+`seanhealy/namshub` by the `ns-sync` skill and replaced whole on each
 update: change it there, never here. The rest of this file is specific to this
 repo.
 
